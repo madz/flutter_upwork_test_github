@@ -14,7 +14,7 @@ class GithubEmptyState extends GithubState {}
 class GithubLoadingState extends GithubState {}
 
 class GithubLoadedState extends GithubState {
-  final List<GitHubCommit> commits;
+  final List<GitHubCommitModel> commits;
   const GithubLoadedState({@required this.commits}) : assert(commits != null);
 
   @override

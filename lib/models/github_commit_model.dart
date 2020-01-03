@@ -4,13 +4,14 @@
 
 import 'dart:convert';
 
-List<GitHubCommit> gitHubCommitFromJson(String str) => List<GitHubCommit>.from(
-    json.decode(str).map((x) => GitHubCommit.fromJson(x)));
+List<GitHubCommitModel> gitHubCommitFromJson(String str) =>
+    List<GitHubCommitModel>.from(
+        json.decode(str).map((x) => GitHubCommitModel.fromJson(x)));
 
-String gitHubCommitToJson(List<GitHubCommit> data) =>
+String gitHubCommitToJson(List<GitHubCommitModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class GitHubCommit {
+class GitHubCommitModel {
   String sha;
   String nodeId;
   Commit commit;
@@ -21,7 +22,7 @@ class GitHubCommit {
   GitHubCommitAuthor committer;
   List<dynamic> parents;
 
-  GitHubCommit({
+  GitHubCommitModel({
     this.sha,
     this.nodeId,
     this.commit,
@@ -33,7 +34,8 @@ class GitHubCommit {
     this.parents,
   });
 
-  factory GitHubCommit.fromJson(Map<String, dynamic> json) => GitHubCommit(
+  factory GitHubCommitModel.fromJson(Map<String, dynamic> json) =>
+      GitHubCommitModel(
         sha: json["sha"],
         nodeId: json["node_id"],
         commit: Commit.fromJson(json["commit"]),

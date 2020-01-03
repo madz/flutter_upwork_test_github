@@ -23,7 +23,7 @@ class GithubBloc extends Bloc<GithubEvent, GithubState> {
     if (event is FetchGithubCommits) {
       yield GithubLoadingState();
       try {
-        List<GitHubCommit> commits = await repository.fetchCommits();
+        List<GitHubCommitModel> commits = await repository.fetchCommits();
 
         if (commits.isEmpty) {
           yield GithubEmptyState();
