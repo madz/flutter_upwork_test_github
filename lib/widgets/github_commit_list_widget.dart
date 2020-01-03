@@ -10,18 +10,25 @@ class GithubCommitListWidget extends StatelessWidget {
     return ListView.builder(
       itemCount: commits.length,
       itemBuilder: (context, index) {
-        final GitHubCommitModel commit = commits.elementAt(index);
+        final GitHubCommitModel githubCommitModel = commits.elementAt(index);
+        final String avatarUrl = githubCommitModel.committer == null
+            ? ""
+            : githubCommitModel.committer.avatarUrl;
         return ListTile(
           leading: Column(
             children: <Widget>[
               Expanded(
-                child: Image.network(commit.author.avatarUrl),
+                child: Image(
+                  image: avatarUrl == null || avatarUrl.isEmpty
+                      ? AssetImage('assets/github_logo.png')
+                      : NetworkImage(avatarUrl),
+                ),
               ),
-              Text('${commit.commit.author.name}'),
+              Text('${githubCommitModel.commit.author.name}'),
             ],
           ),
           title: Card(
-            child: Text('${commit.commit.message}'),
+            child: Text('${githubCommitModel.commit.message}'),
           ),
         );
       },
