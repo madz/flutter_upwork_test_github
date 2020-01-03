@@ -1,8 +1,11 @@
-// To parse this JSON data, do
-//
-//     final gitHubCommit = gitHubCommitFromJson(jsonString);
-
 import 'dart:convert';
+
+import 'package:json_annotation/json_annotation.dart';
+
+import 'github_models/commit.dart';
+import 'github_models/github_commit_author.dart';
+
+part 'github_commit_model.g.dart';
 
 List<GitHubCommitModel> gitHubCommitFromJson(String str) =>
     List<GitHubCommitModel>.from(
@@ -11,6 +14,7 @@ List<GitHubCommitModel> gitHubCommitFromJson(String str) =>
 String gitHubCommitToJson(List<GitHubCommitModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
+@JsonSerializable()
 class GitHubCommitModel {
   Commit commit;
   GitHubCommitAuthor author;
@@ -23,81 +27,6 @@ class GitHubCommitModel {
   });
 
   factory GitHubCommitModel.fromJson(Map<String, dynamic> json) =>
-      GitHubCommitModel(
-        commit: Commit.fromJson(json["commit"]),
-        author: GitHubCommitAuthor.fromJson(json["author"]),
-        committer: GitHubCommitAuthor.fromJson(json["committer"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "commit": commit.toJson(),
-        "author": author.toJson(),
-        "committer": committer.toJson(),
-      };
+      _$GitHubCommitModelFromJson(json);
+  Map<String, dynamic> toJson() => _$GitHubCommitModelToJson(this);
 }
-
-class GitHubCommitAuthor {
-  String avatarUrl;
-
-  GitHubCommitAuthor({
-    this.avatarUrl,
-  });
-
-  factory GitHubCommitAuthor.fromJson(Map<String, dynamic> json) =>
-      GitHubCommitAuthor(
-        avatarUrl: json["avatar_url"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "avatar_url": avatarUrl,
-      };
-}
-
-class Commit {
-  CommitAuthor author;
-  CommitAuthor committer;
-  String message;
-
-  Commit({
-    this.author,
-    this.committer,
-    this.message,
-  });
-
-  factory Commit.fromJson(Map<String, dynamic> json) => Commit(
-        author: CommitAuthor.fromJson(json["author"]),
-        committer: CommitAuthor.fromJson(json["committer"]),
-        message: json["message"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "author": author.toJson(),
-        "committer": committer.toJson(),
-        "message": message,
-      };
-}
-
-class CommitAuthor {
-  String name;
-  String email;
-  DateTime date;
-
-  CommitAuthor({
-    this.name,
-    this.email,
-    this.date,
-  });
-
-  factory CommitAuthor.fromJson(Map<String, dynamic> json) => CommitAuthor(
-        name: json["name"],
-        email: json["email"],
-        date: DateTime.parse(json["date"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "email": email,
-        "date": date.toIso8601String(),
-      };
-}
-
