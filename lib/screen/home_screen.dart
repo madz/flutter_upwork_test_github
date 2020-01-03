@@ -38,26 +38,29 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Center(
-        child: BlocBuilder<GithubBloc, GithubState>(
-          builder: (context, state) {
-            if (state is GithubLoadingState) {
-              return CircularProgressIndicator();
-            } else if (state is GithubLoadedState) {
-              return GithubCommitListWidget(
-                commits: state.commits,
-              );
-            } else if (state is GithubEmptyState) {
-              return Text(
-                'No results',
-                style: TextStyle(color: Colors.blue),
-              );
-            } else {
-              return Text(
-                'Something went wrong!',
-                style: TextStyle(color: Colors.red),
-              );
-            }
-          },
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
+          child: BlocBuilder<GithubBloc, GithubState>(
+            builder: (context, state) {
+              if (state is GithubLoadingState) {
+                return CircularProgressIndicator();
+              } else if (state is GithubLoadedState) {
+                return GithubCommitListWidget(
+                  commits: state.commits,
+                );
+              } else if (state is GithubEmptyState) {
+                return Text(
+                  'No results',
+                  style: TextStyle(color: Colors.blue),
+                );
+              } else {
+                return Text(
+                  'Something went wrong!',
+                  style: TextStyle(color: Colors.red),
+                );
+              }
+            },
+          ),
         ),
       ),
     );
