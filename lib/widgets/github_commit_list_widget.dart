@@ -37,13 +37,21 @@ class GithubCommitListWidget extends StatelessWidget {
                   color: Colors.blue,
                 ),
               ),
-              onTap: () => launch(
-                '${githubCommitModel.htmlUrl}',
-              ),
+              onTap: () {
+                _launchURL(githubCommitModel.html_url);
+              },
             ),
           ),
         );
       },
     );
+  }
+
+  _launchURL(String htmlUrl) async {
+    if (await canLaunch(htmlUrl)) {
+      await launch(htmlUrl);
+    } else {
+      throw 'Could not launch $htmlUrl';
+    }
   }
 }

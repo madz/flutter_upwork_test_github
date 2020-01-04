@@ -19,13 +19,13 @@ class GitHubCommitModel {
   Commit commit;
   GitHubCommitAuthor author;
   GitHubCommitAuthor committer;
-  String htmlUrl;
+  String html_url;
 
   GitHubCommitModel({
     this.commit,
     this.author,
     this.committer,
-    this.htmlUrl,
+    this.html_url,
   });
 
   factory GitHubCommitModel.fromJson(Map<String, dynamic> json) =>
