@@ -18,6 +18,7 @@ GitHubCommitModel _$GitHubCommitModelFromJson(Map<String, dynamic> json) {
         ? null
         : GitHubCommitAuthor.fromJson(
             json['committer'] as Map<String, dynamic>),
+    html_url: json['html_url'] as String,
   );
 }
 
@@ -26,4 +27,5 @@ Map<String, dynamic> _$GitHubCommitModelToJson(GitHubCommitModel instance) =>
       'commit': instance.commit,
       'author': instance.author,
       'committer': instance.committer,
+      'html_url': instance.html_url,
     };
