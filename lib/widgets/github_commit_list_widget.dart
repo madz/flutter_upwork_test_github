@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_upwork_test_github/models/github_commit_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GithubCommitListWidget extends StatelessWidget {
   final List<GitHubCommitModel> commits;
@@ -14,21 +15,32 @@ class GithubCommitListWidget extends StatelessWidget {
         final String avatarUrl = githubCommitModel.committer == null
             ? ""
             : githubCommitModel.committer.avatarUrl;
-        return ListTile(
-          leading: Column(
-            children: <Widget>[
-              Expanded(
-                child: Image(
-                  image: avatarUrl == null || avatarUrl.isEmpty
-                      ? AssetImage('assets/github_logo.png')
-                      : NetworkImage(avatarUrl),
+        return Card(
+          child: ListTile(
+            leading: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Image(
+                    image: avatarUrl == null || avatarUrl.isEmpty
+                        ? AssetImage('assets/github_logo.png')
+                        : NetworkImage(avatarUrl),
+                  ),
+                ),
+                Text('${githubCommitModel.commit.author.name}'),
+              ],
+            ),
+            title: Text('${githubCommitModel.commit.message}'),
+            trailing: new InkWell(
+              child: new Text(
+                'Open',
+                style: TextStyle(
+                  color: Colors.blue,
                 ),
               ),
-              Text('${githubCommitModel.commit.author.name}'),
-            ],
-          ),
-          title: Card(
-            child: Text('${githubCommitModel.commit.message}'),
+              onTap: () => launch(
+                '${githubCommitModel.html_url}',
+              ),
+            ),
           ),
         );
       },
