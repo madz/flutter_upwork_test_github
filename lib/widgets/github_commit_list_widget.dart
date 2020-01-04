@@ -38,7 +38,7 @@ class GithubCommitListWidget extends StatelessWidget {
                 ),
               ),
               onTap: () => launch(
-                '${githubCommitModel.html_url}',
+                '${githubCommitModel.htmlUrl}',
               ),
             ),
           ),
