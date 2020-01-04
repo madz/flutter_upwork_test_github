@@ -19,6 +19,9 @@ class GithubLoadedState extends GithubState {
 
   @override
   List<Object> get props => [commits];
+
+  @override
+  String toString() => 'GithubLoadedState { commits: $commits }';
 }
 
 class GithubErrorState extends GithubState {}
